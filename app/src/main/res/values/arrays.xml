@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ld_activityScreenTitles">
+        <item>Home</item>
+        <item>Serviços</item>
+        <item>Agendamentos</item>
+        <item>Cart</item>
+        <item>Sobre Nós</item>
+        <item>Meu Perfil</item>
+        <item />
+        <item>Sair</item>
+    </string-array>
+
+    <array name="ld_activityScreenIcons">
+        <item>@drawable/ic_baseline_home_24</item>
+        <item>@drawable/ic_baseline_spa_24</item>
+        <item>@drawable/ic_baseline_calendar_today_24</item>
+        <item>@drawable/ic_cart_outline_grey600_24dp</item>
+        <item>@drawable/ic_baseline_info_24</item>
+        <item>@drawable/ic_baseline_person_24</item>
+        <item>0</item>
+        <item>@drawable/ic_logout_grey600_24dp</item>
+    </array>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <array name="sentimental_faces">
+        <item>@drawable/ic_baseline_sentiment_very_dissatisfied_24</item>
+        <item>@drawable/ic_baseline_sentiment_dissatisfied_24</item>
+        <item>@drawable/ic_baseline_sentiment_satisfied_24</item>
+        <item>@drawable/ic_baseline_sentiment_satisfied_alt_24</item>
+        <item>@drawable/ic_baseline_sentiment_very_satisfied_24</item>
+    </array>
+
+    <string-array name="rating_feedback_comment">
+        <item>poxa… como podemos melhoar para a próxima vez?</item>
+        <item>que pena, no que podemos melhorar?</item>
+        <item>no que podemos melhorar?</item>
+        <item>Bom, mas no que acha que podemos melhorar?</item>
+        <item>Ótimo! Compartilhe suas experiências com outros:</item>
+    </string-array>
+
+</resources>

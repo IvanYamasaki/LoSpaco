@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">LoSpaco</string>
+
+    <string name="menu_services">Serviços</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_schedules">Agendamentos</string>
+
+    <string name="desc_logo_spa">Lo\' Spaço Logo</string>
+    <string name="title_name_spa">Lo\' Spaço</string>
+    <string name="desc_star_image">Star Image</string>
+    <string name="desc_service_image">Service Image</string>
+
+    <string name="lbl_lospaco">Lo\' Spaço</string>
+    <string name="lbl_rec_name_serv">Name</string>
+
+    <string name="hint_login">Email</string>
+    <string name="hint_password">Senha</string>
+
+    <string name="btn_log_login">Entrar</string>
+    <string name="btn_log_new_account">Nova Conta</string>
+    <string name="btn_log_forgot_pass">Esqueceu a Senha?</string>
+    <string name="title_services">Serviços</string>
+    <string name="lbl_money_symb">R$</string>
+    <string name="lbl_money_start_of">A partir de R$</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="slider_start">Começar</string>
+    <string name="slider_next">Próximo</string>
+    <string name="slider_back">Voltar</string>
+    <string name="forgot_pass_send_email">Enviar Email</string>
+    <string name="hint_name">Nome</string>
+    <string name="desc_btn_back_carousel">button Back Carousel</string>
+    <string name="desc_btn_next_carousel">Button Next Carousel</string>
+
+    <string name="title_highlights">Destaques</string>
+    <string name="lbl_comments">Comments</string>
+    <string name="btn_buy">Comprar</string>
+    <string name="lbl_rating">Avaliações</string>
+    <string name="btn_add_to_cart">Adicionar ao carrinho</string>
+    <string name="menu_cart">Carrinho</string>
+    <string name="btn_comment">Comentar</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="lbl_rate_us_service">O que você achou desse serviço?</string>
+
+    <string name="menu_search">Pesquisar</string>
+    <string name="menu_delete">Excluir</string>
+    <string name="menu_select_all">Selecionar tudo</string>
+
+    <string name="hint_name_cli">Nome</string>
+    <string name="hint_email_cli">Email</string>
+    <string name="hint_date_nasc_cli">Data de Nascimento</string>
+    <string name="hint_gender_cli">Gênero</string>
+    <string name="hint_phone_n_cli">Telefone</string>
+    <string name="text_about_us">Bem-Vindos ao Lo\'Spaço, um oásis de serenidade e elegância.
+        \n\n
+        Os ambientes são inspirados nos arredores verdejantes,
+        enquanto as seis salas de tratamento (incluindo para casais) oferecem uma atmosfera de
+        tranquilidade e bem-estar. Incorporamos o melhor da tradicional hospitalidade européia.
+        Cômodos luxosos e únicos, unificados pelo desejo de proporcionar o melhor da vida.
+        \n\n
+        Em nosso SPA, os clientes descobrem uma "paixão pela vida", uma apreciação pela
+        cultura e prazeres da natureza, e é por isso que gerações de retornam ano após
+        ano a esse "spa-obra-prima".</string>
+
+    <string name="str_total_value">Valor Total: </string>
+    <string name="str_buy">Comprar</string>
+
+</resources>

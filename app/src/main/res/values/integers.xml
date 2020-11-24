@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="POS_HOME">0</integer>
+    <integer name="POS_SERVICES">1</integer>
+    <integer name="POS_SCHEDULES">2</integer>
+    <integer name="POS_CART">3</integer>
+    <integer name="POS_ABOUT_US">4</integer>
+    <integer name="POS_MY_PROFILE">5</integer>
+    <integer name="POS_LOGOUT">7</integer>
+</resources>

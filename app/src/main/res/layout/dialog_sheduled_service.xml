@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <cn.iwgang.countdownview.CountdownView
+        android:id="@+id/countdownTimeRemaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:foregroundGravity="clip_horizontal|center"
+        app:isHideTimeBackground="false"
+        app:isShowDay="true"
+        app:isShowHour="true"
+        app:isShowMinute="true"
+        app:isShowSecond="true"
+        app:isTimeTextBold="true"
+        app:layout_constraintEnd_toEndOf="@+id/btnClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:suffixDay="d"
+        app:suffixDayLeftMargin="0dp"
+        app:suffixDayRightMargin="10dp"
+        app:suffixGravity="center"
+        app:suffixHour="h"
+        app:suffixHourLeftMargin="0dp"
+        app:suffixHourRightMargin="10dp"
+        app:suffixLRMargin="0dp"
+        app:suffixMinute="m"
+        app:suffixMinuteLeftMargin="0dp"
+        app:suffixMinuteRightMargin="10dp"
+        app:suffixSecond="s"
+        app:suffixSecondLeftMargin="0dp"
+        app:suffixSecondRightMargin="0dp"
+        app:suffixTextColor="#3F51B5"
+        app:suffixTextSize="12sp"
+        app:timeBgColor="#FFFFFF"
+        app:timeTextColor="#3F51B5"
+        app:timeTextSize="28sp" />
+
+    <ImageView
+        android:id="@+id/imgService"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countdownTimeRemaining"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/imgEmp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toEndOf="@+id/imgService"
+        app:layout_constraintTop_toTopOf="@+id/imgService"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/lblService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service "
+        app:layout_constraintEnd_toEndOf="@+id/imgService"
+        app:layout_constraintStart_toStartOf="@+id/imgService"
+        app:layout_constraintTop_toBottomOf="@+id/imgService" />
+
+    <TextView
+        android:id="@+id/lblEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employee"
+        app:layout_constraintEnd_toEndOf="@+id/imgEmp"
+        app:layout_constraintStart_toEndOf="@+id/imgService"
+        app:layout_constraintTop_toBottomOf="@+id/imgEmp" />
+
+    <TextView
+        android:id="@+id/lblDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="DateTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblCode" />
+
+    <TextView
+        android:id="@+id/lblCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="CodeNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imgService"
+        app:layout_constraintTop_toTopOf="@+id/lblService" />
+
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_action_navigation_close" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgEmp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblNameEmp" />
+
+    <TextView
+        android:id="@+id/lblNameEmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/textColorBlack"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCloseEmpInfo" />
+
+    <RatingBar
+        android:id="@+id/ratingEmp"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:indeterminateTint="@color/rating_bar_background"
+        android:isIndicator="true"
+        android:progressBackgroundTint="@color/rating_bar_background"
+        android:progressTint="@color/rating_bar_star"
+        android:secondaryProgressTint="@color/rating_bar_background"
+        app:layout_constraintBottom_toBottomOf="@+id/lblRatingEmp"
+        app:layout_constraintStart_toEndOf="@+id/lblRatingEmp"
+        app:layout_constraintTop_toTopOf="@+id/lblRatingEmp" />
+
+    <TextView
+        android:id="@+id/lblRatingEmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/textColorBlack"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/imgEmp"
+        app:layout_constraintTop_toBottomOf="@+id/imgEmp" />
+
+    <TextView
+        android:id="@+id/lblAgeEmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textColor="@color/textColorBlack"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/imgEmp"
+        app:layout_constraintTop_toTopOf="@+id/imgEmp" />
+
+    <TextView
+        android:id="@+id/lblTimesScheduled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="TextView"
+        android:textColor="@color/textColorBlack"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lblAgeEmp"
+        app:layout_constraintTop_toBottomOf="@+id/lblAgeEmp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Comentários"
+        android:textColor="@color/textColorBlack"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblRatingEmp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCommentsEmp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <ImageButton
+        android:id="@+id/btnCloseEmpInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:tint="@color/textColorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+    <TextView
+        android:id="@+id/lblServicesWorking"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="Atuação: "
+        android:textColor="@color/textColorBlack"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lblTimesScheduled"
+        app:layout_constraintTop_toBottomOf="@+id/lblTimesScheduled" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

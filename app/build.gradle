@@ -1,0 +1,84 @@
+    apply plugin: 'com.android.application'
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.ivangy.lospaco"
+        minSdkVersion 27
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Material design - UI design
+    implementation 'com.google.android.material:material:1.3.0-alpha03'
+
+    // Picasso - Load Image from URL
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Ken Burns View - Ken Burns effect
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
+
+    // BottomNavigationViewEx - Navigation Bottom
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+
+    // SlidingRootNav - Navigation Drawer
+    implementation 'com.yarolegovich:sliding-root-nav:1.1.0'
+
+    // ParallaxView - Parallax effect
+    implementation 'com.github.VRGsoftUA:ParallaxView:1.0'
+
+    // Glide - Image Loader
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+
+    // Glide Slider - Carousel
+    implementation "com.github.firdausmaulan:GlideSlider:1.5.1"
+
+    //Palette
+    implementation 'androidx.palette:palette:1.0.0'
+
+    //Material Search View
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    // Countdown Timer
+    implementation 'com.github.iwgang:countdownview:2.1.6'
+
+    // Ripple Click Effect
+    implementation 'com.balysv:material-ripple:1.0.2'
+
+}
