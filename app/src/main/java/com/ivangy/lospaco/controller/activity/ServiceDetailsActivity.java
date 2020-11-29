@@ -13,31 +13,25 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-import androidx.core.app.TaskStackBuilder;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.ivangy.lospaco.controller.dialog.CommentDialog;
 import com.ivangy.lospaco.R;
-import com.ivangy.lospaco.helpers.adapter.CommentsAdapter;
+import com.ivangy.lospaco.controller.dialog.CommentDialog;
 import com.ivangy.lospaco.helpers.AndroidHelper;
 import com.ivangy.lospaco.helpers.Converter;
-import com.ivangy.lospaco.model.Cart;
+import com.ivangy.lospaco.helpers.adapter.CommentsAdapter;
 import com.ivangy.lospaco.model.Comments;
 import com.ivangy.lospaco.model.Service;
-import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.ivangy.lospaco.controller.activity.MainActivity.listAllCart;
 import static com.ivangy.lospaco.helpers.AndroidHelper.setRecyclerConfig;
-import static com.ivangy.lospaco.helpers.Constants.POS_CART;
 
 public class ServiceDetailsActivity extends AppCompatActivity
-        implements CommentDialog.CommentDialogListener{
+        implements CommentDialog.CommentDialogListener {
 
     private ImageView imgService;
     public RecyclerView recyclerComments;
@@ -69,13 +63,23 @@ public class ServiceDetailsActivity extends AppCompatActivity
 
         collapsingToolbarLayout.setTitle(service.getName());
 
-        lblDesc.setText(service.getDesc());
-        lblClothing.setText(service.getClothing());
+        try {
+            imgService.setImageBitmap(service.getImage());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        lblDesc.setText(service.getCompleteDesc());
+        lblClothing.setText(service.getPropperClothing());
         lblPrice.setText(getApplicationContext().getString(R.string.lbl_money_symb) + service.getPrice());
         lblTime.setText("" + service.getTime());
-        Picasso.get().load(service.getImg()).into(imgService);
-        ratingBarService.setRating(service.getStarRating());
-        lblRating.setText(String.format("%.1f", service.getStarRating()));
+
+        if (service.getStarRating() != null) {
+            ratingBarService.setRating(Float.valueOf(service.getStarRating()));
+            lblRating.setText(service.getStarRating());
+        }else{
+            lblRating.setText("Não Avaliado");
+        }
+
 
         listComments.add(new Comments("Gostei disso aqui heinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinhein", "Jones", 4));
         listComments.add(new Comments("Enfiaram me o dedo heinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinhein", "Sars", 5));
@@ -84,15 +88,15 @@ public class ServiceDetailsActivity extends AppCompatActivity
 
         setRecyclerConfig(getApplicationContext(), recyclerComments, new CommentsAdapter(listComments), LinearLayout.VERTICAL);
 
-
-
         ratingBarAdd.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             CommentDialog commentDialog = new CommentDialog(rating);
             commentDialog.show(getSupportFragmentManager(), "comment_dialog");
         });
 
         findViewById(R.id.btnAddCart).setOnClickListener(v -> {
-            listAllCart.add(new Cart(service.getName(), 1, 12.34));
+/*
+            listAllCart.add(new Cart(service.getName(), 1, "SERVICO"));
+*/
             invalidateOptionsMenu();
         });
 
@@ -102,7 +106,6 @@ public class ServiceDetailsActivity extends AppCompatActivity
                 backIntent();
             }
         });
-
     }
 
     @Override
@@ -121,21 +124,27 @@ public class ServiceDetailsActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItemCart = menu.findItem(R.id.menuCart);
-        menuItemCart.setIcon(Converter.convertLayoutToImage(ServiceDetailsActivity.this, listAllCart.size(), R.drawable.ic_baseline_shopping_cart_24));
+        menuItemCart.setIcon(Converter.convertLayoutToImage(ServiceDetailsActivity.this,
+                /*listAllCart.size()*/0, R.drawable.ic_baseline_shopping_cart_24));
         menu.getItem(0).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.menuCart)
-            //Navigation.findNavController(this, R.id.nav_host_content).navigate(R.id.cartFragment);
-            startActivity(new Intent(this, MainActivity.class));
+        if (item.getItemId() == R.id.menuCart) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+        //Navigation.findNavController(this, R.id.nav_host_content).navigate(R.id.cartFragment);
+
         return super.onOptionsItemSelected(item);
     }
 
-    public void backIntent(){
-        Intent upIntent = NavUtils.getParentActivityIntent(this);
+    public void backIntent() {
+        finish();
+/*        Intent upIntent = NavUtils.getParentActivityIntent(this);
         if (upIntent == null)
             onBackPressed();
 
@@ -144,8 +153,7 @@ public class ServiceDetailsActivity extends AppCompatActivity
         } else {
             upIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             NavUtils.navigateUpTo(this, upIntent);
-        }
-
+        }*/
     }
 
 }

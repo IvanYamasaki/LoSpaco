@@ -3,7 +3,6 @@ package com.ivangy.lospaco.helpers;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.ivangy.lospaco.controller.activity.MainActivity;
 import com.ivangy.lospaco.model.Package;
 import com.ivangy.lospaco.model.Service;
 
@@ -146,13 +144,6 @@ public abstract class AndroidHelper {
         }
     }
 
-    // Get the object by name and returns the matches in an ArrayList
-    public static ArrayList<Service> getServiceByList(ArrayList<String> list, ArrayList<Service> obj) {
-        return obj.stream().filter(ob -> list.contains(ob.getCategory())).collect(Collectors.toCollection(ArrayList::new));
-    }
-    public static ArrayList<Service> getServiceByCategoryName(String name, ArrayList<Service> obj) {
-        return obj.stream().filter(ob -> ob.getCategory().equals(name)).collect(Collectors.toCollection(ArrayList::new));
-    }
     public static Service getServiceByName(String serviceName, ArrayList<Service> obj){
         List<Service> list =  obj.stream().filter(ob -> ob.getName().equals(serviceName)).collect(Collectors.toList());
         if(list.size() != 0)
@@ -165,19 +156,6 @@ public abstract class AndroidHelper {
         if(list.size()!=0)
         return list.get(0);
         return null;
-
-    }
-
-    public static ArrayList<String> getServCategory(ArrayList<Service> listService){
-        ArrayList<String> list = new ArrayList<>();
-
-        listService.forEach(s ->{
-            if(!list.contains(s.getCategory()))
-            list.add(s.getCategory());
-        });
-        //return new ArrayList<>(listService.stream().map(c-> c.getCategory()).collect(Collectors.toList()));
-
-        return list;
     }
 
     public static void setSystemBarColor(Activity act, @ColorRes int color) {

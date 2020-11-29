@@ -40,7 +40,7 @@ public class ServiceOwnerdAdapter extends RecyclerView.Adapter<ServiceOwnerdAdap
         Service service = listService.get(position);
 
         holder.lblNameService.setText(service.getName());
-        Picasso.get().load(service.getImg()).into(holder.imgService);
+//        Picasso.get().load(service.getImg()).into(holder.imgService);
 
         holder.cardView.setOnClickListener(v -> {
             new ScheduleDialog(context, service).show(((FragmentActivity) context).getSupportFragmentManager(), "comment_dialog");

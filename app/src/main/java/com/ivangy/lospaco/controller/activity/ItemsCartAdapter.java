@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ivangy.lospaco.R;
 import com.ivangy.lospaco.model.Cart;
 
-import static com.ivangy.lospaco.controller.activity.MainActivity.listAllCart;
+import static com.ivangy.lospaco.helpers.AndroidHelper.getServiceByName;
 
 public class ItemsCartAdapter extends RecyclerView.Adapter<ItemsCartAdapter.ViewHolder> {
 
@@ -27,14 +27,16 @@ public class ItemsCartAdapter extends RecyclerView.Adapter<ItemsCartAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+/*
         Cart cart = listAllCart.get(position);
-        holder.lblPriceItem.setText(context.getString(R.string.lbl_money_symb)+(Double.valueOf(cart.getPriceTotal())*Integer.valueOf(cart.getQntItem())));
-        holder.lblNameItem.setText(cart.getNameItem()+" x"+ cart.getPriceTotal());
+        holder.lblPriceItem.setText(context.getString(R.string.lbl_money_symb)+(Double.valueOf(getServiceByName(cart.getNameItem(), listAllServices).getPrice())*cart.getQntItem()));
+        holder.lblNameItem.setText(cart.getNameItem()+" x"+ cart.getQntItem());
+*/
     }
 
     @Override
     public int getItemCount() {
-        return listAllCart.size();
+        return /*listAllCart.size()*/0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

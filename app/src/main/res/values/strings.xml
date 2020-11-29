@@ -15,6 +15,7 @@
 
     <string name="hint_login">Email</string>
     <string name="hint_password">Senha</string>
+    <string name="hint_confirm_pass">Confirmar Senha</string>
 
     <string name="btn_log_login">Entrar</string>
     <string name="btn_log_new_account">Nova Conta</string>
@@ -56,6 +57,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
     <string name="lbl_rate_us_service">O que você achou desse serviço?</string>
 
     <string name="menu_search">Pesquisar</string>
@@ -80,5 +82,6 @@
 
     <string name="str_total_value">Valor Total: </string>
     <string name="str_buy">Comprar</string>
+    <string name="txt_create_account">Criar Conta</string>
 
 </resources>

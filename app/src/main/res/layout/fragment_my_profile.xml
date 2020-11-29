@@ -19,21 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtNameCli"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name_cli" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
-
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtEmailCust"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_email_cli" />
@@ -44,23 +32,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
 
-
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtNameCust"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_date_nasc_cli" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_gender_cli" />
+            android:hint="@string/hint_name_cli" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,13 +45,14 @@
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPhoneCust"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_phone_n_cli" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnUpdateCust"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

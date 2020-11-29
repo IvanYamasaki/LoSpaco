@@ -18,7 +18,6 @@ import java.util.Arrays;
 
 import static com.ivangy.lospaco.helpers.AndroidHelper.color;
 import static com.ivangy.lospaco.helpers.Constants.POS_ABOUT_US;
-import static com.ivangy.lospaco.helpers.Constants.POS_CART;
 import static com.ivangy.lospaco.helpers.Constants.POS_HOME;
 import static com.ivangy.lospaco.helpers.Constants.POS_LOGOUT;
 import static com.ivangy.lospaco.helpers.Constants.POS_MY_PROFILE;
@@ -30,10 +29,10 @@ public class DrawerLoader {
     private String[] screenTitles;
     private Drawable[] screenIcons;
 
-    Context context;
-    RecyclerView recyclerMenu;
-    DrawerAdapter.OnItemSelectedListener listener;
-    int position;
+    private Context context;
+    private RecyclerView recyclerMenu;
+    private DrawerAdapter.OnItemSelectedListener listener;
+    private int position;
     public static DrawerAdapter adapter;
     public DrawerLoader(Context context, RecyclerView recyclerMenu, DrawerAdapter.OnItemSelectedListener listener, int position) {
         this.context = context;
@@ -51,7 +50,6 @@ public class DrawerLoader {
                 createItemFor(POS_HOME),
                 createItemFor(POS_SERVICES),
                 createItemFor(POS_SCHEDULES),
-                createItemFor(POS_CART),
                 createItemFor(POS_ABOUT_US),
                 createItemFor(POS_MY_PROFILE),
                 new SpaceItem(48),
@@ -84,6 +82,4 @@ public class DrawerLoader {
         ta.recycle();
         return icons;
     }
-
-
 }

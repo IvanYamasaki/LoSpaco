@@ -33,7 +33,7 @@ public class CartFragment extends Fragment {
     private  RecyclerView recyclerItem;
     private ActionModeCallback actionModeCallback;
     private ActionMode actionMode;
-    private CartAdapter mCartAdapter= new CartAdapter();
+    private CartAdapter mCartAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,9 +46,11 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        mCartAdapter= new CartAdapter(view.findViewById(R.id.lblTotalValue));
 
         recyclerCart = view.findViewById(R.id.recyclerCart);
         recyclerItem = view.findViewById(R.id.recyclerItemsCart);
+
         setRecyclerConfig(getActivity(), recyclerCart, mCartAdapter, LinearLayout.VERTICAL);
 
         mCartAdapter.setOnClickListener(new CartAdapter.OnClickListener() {
@@ -78,14 +80,6 @@ public class CartFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        TextView lblTotalValue = view.findViewById(R.id.lblTotalValue);
-        lblTotalValue.setText(getActivity().getString(R.string.str_total_value)+getActivity().getString(R.string.lbl_money_symb)+"1231");
-    }
-
     private void enableActionMode(int position) {
         if (actionMode == null) {
             actionMode = ((MainActivity) getActivity()).startSupportActionMode(actionModeCallback);
@@ -108,7 +102,7 @@ public class CartFragment extends Fragment {
     private class ActionModeCallback implements ActionMode.Callback {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            setSystemBarColor(getActivity(), R.color.colorPrimary);
+            //setSystemBarColor(getActivity(), R.color.colorPrimary);
             mode.getMenuInflater().inflate(R.menu.menu_items_selected_cart, menu);
             MainActivity.toolbar.setVisibility(View.GONE);
             return true;

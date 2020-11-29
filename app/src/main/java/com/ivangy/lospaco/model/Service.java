@@ -1,59 +1,83 @@
 package com.ivangy.lospaco.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+import java.io.UnsupportedEncodingException;
 
 public class Service implements Serializable {
 
-    private String name, desc, img, category, clothing;
-    private double price;
-    private float starRating;
-    private Time time;
+    private int Id;
+    private String Name, MinifiedDesc, CompleteDesc, PropperClothing, StarRating, Time, Image;
+    private double Price;
+    private Category Category;
 
-    public Service(String name, String desc, float starRating, String img, String category, String clothing, Time time, double price) {
-        this.name = name;
-        this.desc = desc;
-        this.starRating = starRating;
-        this.img = img;
-        this.category = category;
-        this.price = price;
-        this.clothing = clothing;
-        this.time=time;
+    public Service(int id, String name, String minifiedDesc, String completeDesc,
+                   String propperClothing, String image, double price, String starRating,
+                   String time, com.ivangy.lospaco.model.Category category) {
+        Id = id;
+        Name = name;
+        MinifiedDesc = minifiedDesc;
+        CompleteDesc = completeDesc;
+        PropperClothing = propperClothing;
+        Image = image;
+        Price = price;
+        StarRating = starRating;
+        Time = time;
+        Category = category;
     }
 
-    public String getClothing() {
-        return clothing;
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public String getDesc() {
-        return desc;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public float getStarRating() {
-        return starRating;
+    public String getMinifiedDesc() {
+        return MinifiedDesc;
     }
 
-    public String getImg() {
-        return img;
+    public String getCompleteDesc() {
+        return CompleteDesc;
+    }
+
+    public String getPropperClothing() {
+        return PropperClothing;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 
     public double getPrice() {
-        return price;
+        return Price;
     }
 
-    public String getCategory() {
-        return category;
+    public String getStarRating() {
+        return StarRating;
     }
 
-    public Time getTime() {
-        return time;
+    public Bitmap getImage() throws UnsupportedEncodingException {
+        byte[] decodedString = Base64.decode(Image, Base64.DEFAULT);
+        String text = new String(decodedString, "UTF-8");
+        byte[] decodedText = Base64.decode(text, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedText, 0, decodedText.length);
+        return decodedByte;
+    }
+
+    public String getTime() {
+        return Time;
     }
 }

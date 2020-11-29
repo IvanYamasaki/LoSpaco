@@ -1,11 +1,10 @@
 package com.ivangy.lospaco.controller.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -18,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.util.ViewPreloadSizeProvider;
 import com.glide.slider.library.SliderLayout;
 import com.glide.slider.library.animations.DescriptionAnimation;
 import com.glide.slider.library.slidertypes.BaseSliderView;
@@ -28,12 +26,11 @@ import com.glide.slider.library.tricks.ViewPagerEx;
 import com.ivangy.lospaco.R;
 import com.ivangy.lospaco.controller.activity.MainActivity;
 import com.ivangy.lospaco.helpers.AndroidHelper;
-import com.ivangy.lospaco.helpers.adapter.ItemServicesAdapter;
+import com.ivangy.lospaco.helpers.adapter.ServicesAdapter;
 import com.ivangy.lospaco.model.Service;
 
 import java.util.ArrayList;
 
-import static com.ivangy.lospaco.controller.activity.MainActivity.listAllServices;
 import static com.ivangy.lospaco.helpers.ServicesHelper.setServiceRecyclerConfig;
 
 public class HomeFragment extends Fragment implements BaseSliderView.OnSliderClickListener,
@@ -51,6 +48,8 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.toolbar.setTitle("Home");
+        MainActivity.toolbar.setTitleTextColor(Color.WHITE);
+
         listImagesCarousel = new ArrayList<>();
         for (int i = 10; i < 15; i++) {
             listImagesCarousel.add("https://picsum.photos/id/" + i + "/500/300");
@@ -72,10 +71,8 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         mViewPager = view.findViewById(R.id.glide_slider_viewpager);
         recyclerServicesHighlights = view.findViewById(R.id.recyclerServicesHighlights);
 
-        for(int i=0; i<6; i++){
-            listService.add(listAllServices.get(i));
-        }
-        setServiceRecyclerConfig(getActivity(), recyclerServicesHighlights, new ItemServicesAdapter(getActivity(), listService), LinearLayout.HORIZONTAL, listService.size());
+
+        setServiceRecyclerConfig(getActivity(), recyclerServicesHighlights, new ServicesAdapter(getActivity(), listService), LinearLayout.HORIZONTAL, listService.size());
 
         recyclerServicesHighlights.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -142,12 +139,12 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     private void fetchData() {
         new Handler().postDelayed(() -> {
             int size = listService.size();
-            while (size<listAllServices.size() && size<(size+5)) {
+/*            while (size<listAllServices.size() && size<(size+5)) {
                 listService.add(listAllServices.get(size));
 
                 AndroidHelper.notify(recyclerServicesHighlights);
                 size++;
-            }
+            }*/
             }, 5000);
     }
 

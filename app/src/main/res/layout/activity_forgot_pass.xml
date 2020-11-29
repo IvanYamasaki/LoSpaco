@@ -18,7 +18,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageButton2">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtEmail"
+                    android:id="@+id/txtEmailCust"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_login" />

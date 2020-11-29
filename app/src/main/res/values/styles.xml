@@ -6,7 +6,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
-    
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
@@ -20,13 +24,13 @@
     <style name="ExpandedToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/textColorBlack</item>
         <item name="android:fontFamily">@font/hammersmith_one</item>
-        <item name="android:textSize">48dp</item>
+        <item name="android:textSize">36dp</item>
     </style>
 
     <style name="ColapsedToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/textColorBlack</item>
         <item name="android:fontFamily">@font/hammersmith_one</item>
-        <item name="android:textSize">26dp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
 

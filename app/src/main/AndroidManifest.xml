@@ -12,18 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".controller.activity.ServiceDetailsActivity"
-            android:parentActivityName=".controller.activity.MainActivity"
-            android:allowTaskReparenting="true"/>
+        <activity android:name=".controller.activity.CreateAccountActivity"></activity>
+        <activity
+            android:name=".controller.activity.ServiceDetailsActivity"
+            android:allowTaskReparenting="true"
+            android:parentActivityName=".controller.activity.MainActivity" />
         <activity android:name=".controller.activity.CreateAccountNameActivity" />
         <activity android:name=".controller.activity.CreateAccountPassActivity" />
         <activity android:name=".controller.activity.ForgotPassActivity" />
         <activity android:name=".controller.activity.LoginActivity" />
-        <activity android:name=".controller.activity.SliderActivity"/>
-        <activity android:name=".controller.activity.MainActivity"
+        <activity android:name=".controller.activity.SliderActivity" />
+        <activity
+            android:name=".controller.activity.MainActivity"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

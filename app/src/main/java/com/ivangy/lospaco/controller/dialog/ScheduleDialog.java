@@ -77,7 +77,7 @@ public class ScheduleDialog extends AppCompatDialogFragment {
         btnTime.setOnClickListener(v -> showTimeDialog(btnTime));
 
 
-        EmpsAvailableAdapter empsAvailableAdapter = new EmpsAvailableAdapter(ScheduleFragment.listEmps);
+        EmpsAvailableAdapter empsAvailableAdapter = new EmpsAvailableAdapter(/*ScheduleFragment.listEmps*/ new ArrayList<>());
         setGridRecyclerConfig(context, recyclerEmps, empsAvailableAdapter, 2);
         empsAvailableAdapter.setOnClickListener(email -> btnConfirmSchedule.setVisibility(View.VISIBLE));
 

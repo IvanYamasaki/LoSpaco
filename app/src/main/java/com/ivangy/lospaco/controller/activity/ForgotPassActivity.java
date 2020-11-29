@@ -20,7 +20,7 @@ public class ForgotPassActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_forgot_pass);
 
-    txtEmail = findViewById(R.id.txtEmail);
+    txtEmail = findViewById(R.id.txtEmailCust);
     txtEmail.setText(Objects.requireNonNull(getIntent().getExtras()).getString("email"));
 
   }

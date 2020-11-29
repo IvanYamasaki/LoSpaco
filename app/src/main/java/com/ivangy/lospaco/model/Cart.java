@@ -2,24 +2,32 @@ package com.ivangy.lospaco.model;
 
 public class Cart {
 
-    private String nameItem;
+    private String nameItem, type;
     private int qntItem;
-    private double priceTotal, priceBase;
 
-    public Cart(String nameItem, int qntItem, double priceBase) {
+    public Cart(String nameItem, int qntItem, String type) {
         this.nameItem = nameItem;
         this.qntItem = qntItem;
-        this.priceBase=priceBase;
-        setPriceTotal();
+        this.type= type;
     }
 
-    public double getPriceTotal() {
-        return priceTotal;
+    public void setNameItem(String nameItem) {
+        this.nameItem = nameItem;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+/*
     public void setPriceTotal() {
         this.priceTotal = Double.valueOf(String.format("%.2f", priceBase*qntItem).replace(",", "."));
     }
+*/
 
     public String getNameItem() {
         return nameItem;
@@ -31,14 +39,6 @@ public class Cart {
 
     public void setQntItem(int qntItem) {
         this.qntItem = qntItem;
-        setPriceTotal();
     }
 
-    public double getPriceBase() {
-        return priceBase;
-    }
-
-    public void setPriceBase(double priceBase) {
-        this.priceBase = priceBase;
-    }
 }

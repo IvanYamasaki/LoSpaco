@@ -5,7 +5,9 @@
         <item>Home</item>
         <item>Serviços</item>
         <item>Agendamentos</item>
-        <item>Cart</item>
+<!--
+        <item>Carrinho</item>
+-->
         <item>Sobre Nós</item>
         <item>Meu Perfil</item>
         <item />
@@ -16,7 +18,9 @@
         <item>@drawable/ic_baseline_home_24</item>
         <item>@drawable/ic_baseline_spa_24</item>
         <item>@drawable/ic_baseline_calendar_today_24</item>
+<!--
         <item>@drawable/ic_cart_outline_grey600_24dp</item>
+-->
         <item>@drawable/ic_baseline_info_24</item>
         <item>@drawable/ic_baseline_person_24</item>
         <item>0</item>

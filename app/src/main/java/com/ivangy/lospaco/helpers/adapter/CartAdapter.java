@@ -8,7 +8,6 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,21 +27,19 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ivangy.lospaco.controller.activity.MainActivity.listAllCart;
-import static com.ivangy.lospaco.controller.activity.MainActivity.listAllPackages;
-import static com.ivangy.lospaco.controller.activity.MainActivity.listAllServices;
 import static com.ivangy.lospaco.controller.fragment.CartFragment.recyclerCart;
 import static com.ivangy.lospaco.helpers.AndroidHelper.get;
 import static com.ivangy.lospaco.helpers.AndroidHelper.getPackageByName;
 import static com.ivangy.lospaco.helpers.AndroidHelper.getServiceByName;
 import static com.ivangy.lospaco.helpers.AndroidHelper.setRecyclerConfig;
-import static com.ivangy.lospaco.helpers.AndroidHelper.toastShort;
 
 public class CartAdapter extends RecyclerView.Adapter {
 
     private Context context;
-
+    private TextView lblTotalValue;
     private OnClickListener onClickListener = null;
+
+    private final String typeService = "SERVICO", typePackage = "PACOTE";
 
     private SparseBooleanArray selected_items = new SparseBooleanArray();;
     private int current_selected_idx = -1;
@@ -51,9 +48,13 @@ public class CartAdapter extends RecyclerView.Adapter {
         this.onClickListener = onClickListener;
     }
 
+    public CartAdapter(TextView lblTotalValue) {
+        this.lblTotalValue = lblTotalValue;
+    }
+
     @Override
     public int getItemViewType(int position) {
-        if (getServiceByName(listAllCart.get(position).getNameItem(), listAllServices) != null)
+        if (getServiceByName("", new ArrayList<>()) != null)
             return 0;
         return 1;
     }
@@ -72,15 +73,19 @@ public class CartAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Cart cart = listAllCart.get(position);
-        Service service = getServiceByName(cart.getNameItem(), listAllServices);
+        double totalValue = 0;
+       // Cart cart = listAllCart.get(position);
+       Cart cart = new Cart("a", 2, typePackage);
 
-        if (service != null) {
+        if (cart.getType().equals(typeService)) {
+            Service service = getServiceByName(cart.getNameItem(), /*listAllServices*/ new ArrayList<>());
             ViewHolderServices viewHolderServices = (ViewHolderServices) holder;
+
+            assert service != null;
             EditText txt = viewHolderServices.txtQntItem;
             viewHolderServices.lblNameItem.setText(service.getName());
             viewHolderServices.lblPriceItem.setText(context.getString(R.string.lbl_money_symb) + service.getPrice());
-            Picasso.get().load(service.getImg()).into(viewHolderServices.imgItem);
+//            Picasso.get().load(service.getImg()).into(viewHolderServices.imgItem);
             txt.setText(String.valueOf(cart.getQntItem()));
 
             viewHolderServices.itemView.setOnClickListener(v -> {
@@ -97,9 +102,14 @@ public class CartAdapter extends RecyclerView.Adapter {
             toggleCheckedIcon(viewHolderServices.itemView, position);
 
             btnSubAdd(viewHolderServices.btnAdd, viewHolderServices.btnSub, viewHolderServices.txtQntItem, viewHolderServices.lblPriceItem, cart, position);
-        } else {
+
+            totalValue=totalValue+(service.getPrice()*cart.getQntItem());
+
+        } else
+            if(cart.getType().equals(typePackage)){
             ViewHolderPackages viewHolderPackages = (ViewHolderPackages) holder;
-            Package pack = getPackageByName(cart.getNameItem(), listAllPackages);
+            Package pack = getPackageByName(cart.getNameItem(), /*listAllPackages*/ new ArrayList<>());
+
             assert pack != null;
             Picasso.get().load(pack.getImgPackage()).into(viewHolderPackages.imgPackage);
             viewHolderPackages.lblNamePackage.setText(pack.getNamePackage());
@@ -125,13 +135,15 @@ public class CartAdapter extends RecyclerView.Adapter {
             toggleCheckedIcon(viewHolderPackages.itemView, position);
 
             btnSubAdd(viewHolderPackages.btnAdd, viewHolderPackages.btnSub, viewHolderPackages.txtQntPackage, viewHolderPackages.lblPricePackage, cart, position);
+            totalValue=totalValue+cart.getQntItem()*pack.getPricepackage();
         }
 
+        lblTotalValue.setText(String.format("%.2f", totalValue).replace(",", "."));
     }
 
     @Override
     public int getItemCount() {
-        return listAllCart.size();
+        return /*listAllCart.size()*/ 0;
     }
 
     public class ViewHolderServices extends RecyclerView.ViewHolder {
@@ -175,7 +187,7 @@ public class CartAdapter extends RecyclerView.Adapter {
 
         builder.setMessage("Tem certeza que deseja excluir o item do carrinho?")
                 .setPositiveButton("Sim", (dialog, which) -> {
-                    listAllCart.remove(position);
+                    /*listAllCart.remove(position);*/
                     AndroidHelper.notify(recyclerCart);
                 })
                 .setNegativeButton("Não", null).create();
@@ -187,7 +199,6 @@ public class CartAdapter extends RecyclerView.Adapter {
         btnAdd.setOnClickListener(v -> {
             cart.setQntItem(Integer.parseInt(get(txtQnt)) + 1);
             txtQnt.setText(String.valueOf(cart.getQntItem()));
-            lblPrice.setText(context.getString(R.string.lbl_money_symb) +cart.getPriceTotal());
         });
         btnSub.setOnClickListener(v -> {
             if (Integer.parseInt(get(txtQnt)) == 1)
@@ -195,9 +206,8 @@ public class CartAdapter extends RecyclerView.Adapter {
             else {
                 if (Integer.parseInt(get(txtQnt)) > 1)
                     cart.setQntItem(Integer.parseInt(get(txtQnt)) - 1);
-                    cart.setPriceTotal();
                 txtQnt.setText(String.valueOf(cart.getQntItem()));
-                lblPrice.setText(context.getString(R.string.lbl_money_symb) +cart.getPriceTotal());
+//                lblPrice.setText(context.getString(R.string.lbl_money_symb) +cart.getPriceTotal());
             }
         });
     }
@@ -239,7 +249,7 @@ public class CartAdapter extends RecyclerView.Adapter {
     }
 
     public void removeData(int position) {
-        listAllCart.remove(position);
+        /*listAllCart.remove(position);*/
         resetCurrentIndex();
     }
 

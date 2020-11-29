@@ -1,6 +1,8 @@
 package com.ivangy.lospaco.model;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 
     private String nome, email, senha, cpf, phoneNumber;
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="base_url_web_api">https://lospacoapi.azurewebsites.net/api/</string>
+
+    <string name="shared_preferences_cust_login">CUSTOMER_LOGIN</string>
+    <string name="sp_cust_email">email</string>
+    <string name="sp_cust_password">password</string>
+    <string name="sp_cust_id">id</string>
+
+    <string name="fos_customer_account">file_customer_account</string>
+</resources>

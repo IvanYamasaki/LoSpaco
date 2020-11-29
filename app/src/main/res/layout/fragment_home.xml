@@ -20,7 +20,7 @@
             <com.glide.slider.library.SliderLayout
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="350dp" />
+                android:layout_height="250dp" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -36,10 +36,9 @@
                 android:id="@+id/recyclerServicesHighlights"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
-                tools:listitem="@layout/item_services"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_services" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardPromotion"
@@ -59,6 +58,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
                 app:cardElevation="15dp" />
 
         </LinearLayout>

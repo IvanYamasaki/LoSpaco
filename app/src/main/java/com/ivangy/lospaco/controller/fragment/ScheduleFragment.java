@@ -28,7 +28,6 @@ import static com.ivangy.lospaco.helpers.AndroidHelper.setGridRecyclerConfig;
 import static com.ivangy.lospaco.helpers.AndroidHelper.setRecyclerConfig;
 
 public class ScheduleFragment extends Fragment{
-    public static ArrayList<Employee> listEmps = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,10 +51,8 @@ public class ScheduleFragment extends Fragment{
         listSheduled.add(new ServicesScheduled( i,"EmpName"+i, "Name", "https://picsum.photos/id/" + i + "/400/600","https://picsum.photos/id/" + Integer.valueOf(i+123) + "/400/600", "2020-10-"+(i-139)+" 12:30:00"));
 
         setRecyclerConfig(getActivity(), view.findViewById(R.id.recyclerScheduled), new ServicesScheduledAdapter(listSheduled), LinearLayout.HORIZONTAL);
-        setGridRecyclerConfig(getActivity(), view.findViewById(R.id.recyclerServiceOwned), new ServiceOwnerdAdapter(MainActivity.listAllServices), 2);
-
-        for (int i = 200; i < 205; i++)
-            listEmps.add(new Employee("Name" + i, "https://picsum.photos/id/" + i + "/400/600", (new Random().nextBoolean() ? 'M' : 'F'), "emp" + i + "@gemail.com", "(11) 98734-5887", 4.2f, 123, 21));
+        setGridRecyclerConfig(getActivity(), view.findViewById(R.id.recyclerServiceOwned),
+                new ServiceOwnerdAdapter(/*MainActivity.listAllServices*/ new ArrayList<>()), 2);
 
     }
 
