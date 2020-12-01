@@ -160,16 +160,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         Account jResponse = (Account) response.body();
 
-                        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_preferences_cust_login), 0);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt(getResources().getString(R.string.sp_cust_id), jResponse.getId());
-                        editor.putString(getResources().getString(R.string.sp_cust_email), jResponse.getEmail());
-                        editor.putString(getResources().getString(R.string.sp_cust_password), jResponse.getPassword());
-                        editor.apply();
-                        Log.d("Cutomer_id", jResponse.getId()+"");
-                        Log.d("Cutomer_id", jResponse.getEmail()+"");
-                        Log.d("Cutomer_id", jResponse.getPassword()+"");
-                        Log.d("Cutomer_id", jResponse.getRole()+"");
+                        FileOutputStream fos;
+                        try {
+                            fos = new FileOutputStream(getFileStreamPath(getResources().getString(R.string.fos_account)));
+                            ObjectOutputStream oos = new ObjectOutputStream(fos);
+                            oos.writeObject(jResponse);
+                            oos.close();
+                            fos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

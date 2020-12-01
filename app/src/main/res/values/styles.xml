@@ -23,12 +23,15 @@
 
     <style name="ExpandedToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/textColorBlack</item>
+        <item name="backgroundColor">@color/transparent</item>
         <item name="android:fontFamily">@font/hammersmith_one</item>
         <item name="android:textSize">36dp</item>
     </style>
 
     <style name="ColapsedToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="titleTextColor">@color/textColorBlack</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="backgroundColor">@color/textColorBlack</item>
         <item name="android:fontFamily">@font/hammersmith_one</item>
         <item name="android:textSize">20dp</item>
         <item name="android:layout_marginTop">10dp</item>

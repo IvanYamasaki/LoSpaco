@@ -5,6 +5,8 @@ import android.content.Context;
 import com.ivangy.lospaco.R;
 import com.ivangy.lospaco.controller.interfaces.JsonPlaceHolderApi;
 
+import java.io.UnsupportedEncodingException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class JSONRequest <T>{
-
 
     public JSONRequest(Call<T> call, Method method) {
         requestJSON(call, method);
@@ -33,7 +34,11 @@ public class JSONRequest <T>{
         call.enqueue(new Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
-                method.onResponse(call, response);
+                try {
+                    method.onResponse(call, response);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

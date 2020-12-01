@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,14 @@ import com.ivangy.lospaco.R;
 import com.ivangy.lospaco.controller.activity.MainActivity;
 import com.ivangy.lospaco.helpers.JSONRequest;
 import com.ivangy.lospaco.helpers.Method;
+import com.ivangy.lospaco.model.Account;
 import com.ivangy.lospaco.model.Category;
 import com.ivangy.lospaco.model.Customer;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,21 +68,24 @@ public class MyProfileFragment extends Fragment {
 
         btnUpdateCustomer.setOnClickListener(v -> {
             if(isEmpty(txtName) || isEmpty(txtEmail)){
-                toastShort(getActivity(), "");
+                toastShort(getActivity(), "Campos de Nome e Email são obrigatórios");
+            }else{
+
             }
         });
 
     }
 
-    private class AsyncLoader extends AsyncTask<Integer, Integer, List<Category>> {
+    private class AsyncLoader extends AsyncTask<Integer, Integer, Customer> {
         @Override
-        protected List<Category> doInBackground(Integer... integers) {
+        protected Customer doInBackground(Integer... integers) {
 
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getResources().getString(R.string.shared_preferences_cust_login), 0);
-            int id = sharedPreferences.getInt(getResources().getString(R.string.sp_cust_id), 0);
+            Account acc = Account.getInternalAccount(getActivity());
+
+            Log.d("acc_internal_storage", acc.getEmail());
 
             new JSONRequest(
-                    JSONRequest.getJsonPlaceHolderApi(getActivity()).getCustomerById(id),
+                    JSONRequest.getJsonPlaceHolderApi(getActivity()).getCustomerById(acc.getId()),
                     new Method() {
                         @Override
                         public <T> void onResponse(Call<T> call, Response<T> response) {
@@ -99,7 +109,7 @@ public class MyProfileFragment extends Fragment {
 
     public void completeFields(Customer customer) {
         txtName.setText(customer.getNome());
-        txtEmail.setText(customer.getEmail());
+        txtEmail.setText(customer.getAccount().getEmail());
         txtPhone.setText(customer.getPhoneNumber());
     }
 

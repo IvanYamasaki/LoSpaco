@@ -26,6 +26,7 @@
         <item>0</item>
         <item>@drawable/ic_logout_grey600_24dp</item>
     </array>
+
     <!-- Reply Preference -->
     <string-array name="reply_entries">
         <item>Reply</item>

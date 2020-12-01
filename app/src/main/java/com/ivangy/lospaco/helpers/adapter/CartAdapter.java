@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,42 +20,46 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ivangy.lospaco.R;
 import com.ivangy.lospaco.helpers.AndroidHelper;
+import com.ivangy.lospaco.helpers.JSONRequest;
+import com.ivangy.lospaco.helpers.Method;
 import com.ivangy.lospaco.model.Cart;
 import com.ivangy.lospaco.model.Package;
 import com.ivangy.lospaco.model.Service;
-import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 import static com.ivangy.lospaco.controller.fragment.CartFragment.recyclerCart;
-import static com.ivangy.lospaco.helpers.AndroidHelper.get;
-import static com.ivangy.lospaco.helpers.AndroidHelper.getPackageByName;
-import static com.ivangy.lospaco.helpers.AndroidHelper.getServiceByName;
 import static com.ivangy.lospaco.helpers.AndroidHelper.setRecyclerConfig;
+import static com.ivangy.lospaco.helpers.AndroidHelper.toastShort;
 
 public class CartAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private TextView lblTotalValue;
     private OnClickListener onClickListener = null;
+
+    private List<Cart> listCart;
 
     private final String typeService = "SERVICO", typePackage = "PACOTE";
 
-    private SparseBooleanArray selected_items = new SparseBooleanArray();;
+    private SparseBooleanArray selected_items = new SparseBooleanArray();
     private int current_selected_idx = -1;
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public CartAdapter(TextView lblTotalValue) {
-        this.lblTotalValue = lblTotalValue;
+    public CartAdapter(List<Cart> listCart) {
+        this.listCart = listCart;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (getServiceByName("", new ArrayList<>()) != null)
+        if (listCart.get(position).getType().equals(typeService))
             return 0;
         return 1;
     }
@@ -73,77 +78,18 @@ public class CartAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        double totalValue = 0;
-       // Cart cart = listAllCart.get(position);
-       Cart cart = new Cart("a", 2, typePackage);
+        Cart cart = listCart.get(position);
 
-        if (cart.getType().equals(typeService)) {
-            Service service = getServiceByName(cart.getNameItem(), /*listAllServices*/ new ArrayList<>());
-            ViewHolderServices viewHolderServices = (ViewHolderServices) holder;
-
-            assert service != null;
-            EditText txt = viewHolderServices.txtQntItem;
-            viewHolderServices.lblNameItem.setText(service.getName());
-            viewHolderServices.lblPriceItem.setText(context.getString(R.string.lbl_money_symb) + service.getPrice());
-//            Picasso.get().load(service.getImg()).into(viewHolderServices.imgItem);
-            txt.setText(String.valueOf(cart.getQntItem()));
-
-            viewHolderServices.itemView.setOnClickListener(v -> {
-                if (onClickListener == null) return;
-                onClickListener.onItemClick(v, cart, position);
-            });
-
-            viewHolderServices.itemView.setOnLongClickListener(v -> {
-                if (onClickListener == null) return false;
-                onClickListener.onItemLongClick(v, cart, position);
-                return true;
-            });
-
-            toggleCheckedIcon(viewHolderServices.itemView, position);
-
-            btnSubAdd(viewHolderServices.btnAdd, viewHolderServices.btnSub, viewHolderServices.txtQntItem, viewHolderServices.lblPriceItem, cart, position);
-
-            totalValue=totalValue+(service.getPrice()*cart.getQntItem());
-
-        } else
-            if(cart.getType().equals(typePackage)){
-            ViewHolderPackages viewHolderPackages = (ViewHolderPackages) holder;
-            Package pack = getPackageByName(cart.getNameItem(), /*listAllPackages*/ new ArrayList<>());
-
-            assert pack != null;
-            Picasso.get().load(pack.getImgPackage()).into(viewHolderPackages.imgPackage);
-            viewHolderPackages.lblNamePackage.setText(pack.getNamePackage());
-            viewHolderPackages.lblPricePackage.setText(context.getString(R.string.lbl_money_symb) + pack.getPricepackage());
-            viewHolderPackages.txtQntPackage.setText(String.valueOf(cart.getQntItem()));
-
-            ItemPackageAdapter adapter = new ItemPackageAdapter(pack.getListServices());
-            setRecyclerConfig(context, viewHolderPackages.recyclerItemsPackage, adapter, LinearLayout.VERTICAL);
-
-            adapter.setOnClickListener(pos -> onClickListener.onItemLongClick(viewHolderPackages.itemView, cart, position));
-
-            viewHolderPackages.itemView.setOnClickListener(v -> {
-                if (onClickListener == null) return;
-                onClickListener.onItemClick(v, cart, position);
-            });
-
-            viewHolderPackages.itemView.setOnLongClickListener(v -> {
-                if (onClickListener == null) return false;
-                onClickListener.onItemLongClick(v, cart, position);
-                return true;
-            });
-
-            toggleCheckedIcon(viewHolderPackages.itemView, position);
-
-            btnSubAdd(viewHolderPackages.btnAdd, viewHolderPackages.btnSub, viewHolderPackages.txtQntPackage, viewHolderPackages.lblPricePackage, cart, position);
-            totalValue=totalValue+cart.getQntItem()*pack.getPricepackage();
+        if (getItemViewType(position)==0) {
+            new ServiceLoader((ViewHolderServices) holder, cart, position, cart.getName());
+        } else if (getItemViewType(position)==1) {
+            new PackageLoader((ViewHolderPackages) holder, cart, position, cart.getName());
         }
-
-        lblTotalValue.setText(String.format("%.2f", totalValue).replace(",", "."));
     }
 
     @Override
     public int getItemCount() {
-        return /*listAllCart.size()*/ 0;
+        return listCart.size();
     }
 
     public class ViewHolderServices extends RecyclerView.ViewHolder {
@@ -196,7 +142,7 @@ public class CartAdapter extends RecyclerView.Adapter {
     }
 
     private void btnSubAdd(ImageButton btnAdd, ImageButton btnSub, EditText txtQnt, TextView lblPrice, Cart cart, int position) {
-        btnAdd.setOnClickListener(v -> {
+/*        btnAdd.setOnClickListener(v -> {
             cart.setQntItem(Integer.parseInt(get(txtQnt)) + 1);
             txtQnt.setText(String.valueOf(cart.getQntItem()));
         });
@@ -209,7 +155,7 @@ public class CartAdapter extends RecyclerView.Adapter {
                 txtQnt.setText(String.valueOf(cart.getQntItem()));
 //                lblPrice.setText(context.getString(R.string.lbl_money_symb) +cart.getPriceTotal());
             }
-        });
+        });*/
     }
 
     private void toggleCheckedIcon(View view, int position) {
@@ -262,5 +208,133 @@ public class CartAdapter extends RecyclerView.Adapter {
 
         void onItemLongClick(View view, Cart obj, int pos);
     }
+
+
+    private class ServiceLoader extends AsyncTask<Integer, Integer, Service> {
+
+        private ViewHolderServices holder;
+        private Cart cart;
+        private int position;
+        private String name;
+
+        public ServiceLoader(ViewHolderServices holder, Cart cart, int position, String name) {
+            this.holder = holder;
+            this.cart = cart;
+            this.position = position;
+            this.name = name;
+        }
+
+        @Override
+        protected Service doInBackground(Integer... integers) {
+            new JSONRequest(
+                    JSONRequest.getJsonPlaceHolderApi(context).getServiceByName(name),
+                    new Method() {
+                        @Override
+                        public <T> void onResponse(Call<T> call, Response<T> response) {
+                            if (!response.isSuccessful())
+                                toastShort(context, "Código do erro: " + response.code());
+                            else {
+                                Service service = (Service) response.body();
+                                toastShort(context, "SERV: " + service.getName()+service.getPrice());
+
+                                holder.lblNameItem.setText(service.getName());
+                                holder.lblPriceItem.setText(context.getString(R.string.lbl_money_symb) + cart.getPrice());
+                                holder.txtQntItem.setText(String.valueOf(cart.getQnt()));
+                                try {
+                                    holder.imgItem.setImageBitmap(service.getImage());
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+
+                                holder.itemView.setOnClickListener(v -> {
+                                    if (onClickListener == null) return;
+                                    onClickListener.onItemClick(v, cart, position);
+                                });
+
+                                holder.itemView.setOnLongClickListener(v -> {
+                                    if (onClickListener == null) return false;
+                                    onClickListener.onItemLongClick(v, cart, position);
+                                    return true;
+                                });
+
+                                toggleCheckedIcon(holder.itemView, position);
+                                btnSubAdd(holder.btnAdd, holder.btnSub, holder.txtQntItem, holder.lblPriceItem, cart, position);
+                            }
+                        }
+
+                        @Override
+                        public <T> void onFailure(Call<T> call, Throwable t) {
+                            toastShort(context, "" + t.getMessage() +
+                                    "\n Houve um problema ao verificar os dados, por favor, tente novamente");
+                        }
+                    });
+            return null;
+        }
+    }
+
+    private class PackageLoader extends AsyncTask<Integer, Integer, Package> {
+
+        private ViewHolderPackages holder;
+        private Cart cart;
+        private int position;
+        private String name;
+
+        public PackageLoader(ViewHolderPackages holder, Cart cart, int position, String name) {
+            this.holder = holder;
+            this.cart = cart;
+            this.position = position;
+            this.name = name;
+        }
+
+        @Override
+        protected Package doInBackground(Integer... integers) {
+            new JSONRequest(
+                    JSONRequest.getJsonPlaceHolderApi(context).getAllCategories(),
+                    new Method() {
+                        @Override
+                        public <T> void onResponse(Call<T> call, Response<T> response) throws UnsupportedEncodingException {
+                            if (!response.isSuccessful())
+                                toastShort(context, "Código do erro: " + response.code());
+                            else {
+
+                                Package pack = (Package) response.body();
+
+                                holder.imgPackage.setImageBitmap(pack.getImage());
+                                holder.lblNamePackage.setText(pack.getName());
+                                holder.lblPricePackage.setText(context.getString(R.string.lbl_money_symb) + pack.getPrice());
+                                holder.txtQntPackage.setText(String.valueOf(cart.getQnt()));
+
+                                ItemPackageAdapter adapter = new ItemPackageAdapter(pack.getServices());
+                                setRecyclerConfig(context, holder.recyclerItemsPackage, adapter, LinearLayout.VERTICAL);
+
+                                adapter.setOnClickListener(pos -> onClickListener.onItemLongClick(holder.itemView, cart, position));
+
+                                holder.itemView.setOnClickListener(v -> {
+                                    if (onClickListener == null) return;
+                                    onClickListener.onItemClick(v, cart, position);
+                                });
+
+                                holder.itemView.setOnLongClickListener(v -> {
+                                    if (onClickListener == null) return false;
+                                    onClickListener.onItemLongClick(v, cart, position);
+                                    return true;
+                                });
+
+                                toggleCheckedIcon(holder.itemView, position);
+
+                                btnSubAdd(holder.btnAdd, holder.btnSub, holder.txtQntPackage, holder.lblPricePackage, cart, position);
+                            }
+                        }
+
+                        @Override
+                        public <T> void onFailure(Call<T> call, Throwable t) {
+                            toastShort(context, "" + t.getMessage() +
+                                    "\n Houve um problema ao verificar os dados, por favor, tente novamente");
+                        }
+                    });
+            return null;
+        }
+    }
+
 
 }

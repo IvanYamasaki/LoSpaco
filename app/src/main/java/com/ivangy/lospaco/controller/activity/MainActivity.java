@@ -3,6 +3,7 @@ package com.ivangy.lospaco.controller.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         implements DrawerAdapter.OnItemSelectedListener {
 
     public static Toolbar toolbar;
-
+    private DrawerLoader drawerLoader;
     private SlidingRootNav slidingRootNav;
     private MaterialSearchView searchView;
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
             fragmentPosition = extras.getInt("FragmentPosition");
         }
 
-        new DrawerLoader(this, recyclerDrawer, this, fragmentPosition);
+        drawerLoader = new DrawerLoader(this, recyclerDrawer, this, fragmentPosition);
 
         searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.menuCart:
                 Navigation.findNavController(this, R.id.nav_host_content).navigate(R.id.cartFragment);
+                drawerLoader.unselectItems();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -136,17 +138,10 @@ public class MainActivity extends AppCompatActivity
                 finish();
                 break;
         }
-
         slidingRootNav.closeMenu();
         invalidateOptionsMenu();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return false;
-    }
 
     @Override
     protected void onResume() {
@@ -156,14 +151,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
         MenuItem menuItemCart = menu.findItem(R.id.menuCart);
-        menuItemCart.setIcon(Converter.convertLayoutToImage(MainActivity.this,/* listAllCart.size()*/ 0, R.drawable.ic_baseline_shopping_cart_24));
-        searchView.setMenuItem(menu.findItem(R.id.menuSearch));
+        Drawable iconCart = Converter.convertLayoutToImage(MainActivity.this,/* listAllCart.size()*/ 1, R.drawable.ic_baseline_shopping_cart_24);
+        menuItemCart.setIcon(iconCart);
 
+        searchView.setMenuItem(menu.findItem(R.id.menuSearch));
         menu.findItem(R.id.menuSearch).setVisible(false);
 
         return super.onPrepareOptionsMenu(menu);
     }
+
+
 }

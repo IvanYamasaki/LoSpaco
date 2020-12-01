@@ -65,6 +65,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
 
     public void setSelected(int position) {
         DrawerItem newChecked = items.get(position);
+
         if (!newChecked.isSelectable()) {
             return;
         }
@@ -77,12 +78,22 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
                 break;
             }
         }
-
         newChecked.setChecked(true);
         notifyItemChanged(position);
 
         if (listener != null) {
             listener.onItemSelected(position);
+        }
+    }
+
+    public void unselectItems(){
+        for (int i = 0; i < items.size(); i++) {
+            DrawerItem item = items.get(i);
+            if (item.isChecked()) {
+                item.setChecked(false);
+                notifyItemChanged(i);
+                break;
+            }
         }
     }
 
@@ -108,4 +119,6 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
     public interface OnItemSelectedListener {
         void onItemSelected(int position);
     }
+
+
 }

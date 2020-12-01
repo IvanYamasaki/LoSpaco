@@ -1,29 +1,27 @@
 package com.ivangy.lospaco.model;
 
+import android.content.Context;
+
+import com.ivangy.lospaco.R;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 public class Customer implements Serializable {
 
-    private String nome, email, senha, cpf, phoneNumber;
+    private String nome, cpf, phoneNumber;
+    private Account account;
 
-    public Customer(String nome, String email, String senha, String cpf, String phoneNumber) {
+    public Customer(String nome, String cpf, String phoneNumber) {
         this.nome = nome;
-        this.email = email;
-        this.senha = senha;
         this.cpf = cpf;
         this.phoneNumber = phoneNumber;
     }
 
     public String getNome() {
         return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getSenha() {
-        return senha;
     }
 
     public String getCpf() {
@@ -38,14 +36,6 @@ public class Customer implements Serializable {
         this.nome = nome;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
@@ -53,4 +43,13 @@ public class Customer implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
 }

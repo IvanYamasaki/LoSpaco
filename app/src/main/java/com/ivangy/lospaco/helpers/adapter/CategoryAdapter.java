@@ -73,18 +73,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
     private class AsyncLoader extends AsyncTask<Integer, Integer, List<Service>> {
-        int position;
+        int id;
         RecyclerView recyclerItemService;
 
-        public AsyncLoader(int position, RecyclerView recyclerItemService) {
-            this.position = position;
+        public AsyncLoader(int id, RecyclerView recyclerItemService) {
+            this.id = id;
             this.recyclerItemService = recyclerItemService;
         }
 
         @Override
         protected List<Service> doInBackground(Integer... integers) {
             new JSONRequest(
-                    JSONRequest.getJsonPlaceHolderApi(mContext).getServicesByCategory(position),
+                    JSONRequest.getJsonPlaceHolderApi(mContext).getServicesByCategory(id),
                     new Method() {
                         @Override
                         public<T> void onResponse(Call<T> call, Response<T> response) {

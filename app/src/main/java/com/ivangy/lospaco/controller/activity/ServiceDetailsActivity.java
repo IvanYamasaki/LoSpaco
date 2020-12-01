@@ -1,6 +1,7 @@
 package com.ivangy.lospaco.controller.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,7 +81,6 @@ public class ServiceDetailsActivity extends AppCompatActivity
             lblRating.setText("Não Avaliado");
         }
 
-
         listComments.add(new Comments("Gostei disso aqui heinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinhein", "Jones", 4));
         listComments.add(new Comments("Enfiaram me o dedo heinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinheinhein", "Sars", 5));
         listComments.add(new Comments("Não gostei", "Jhon", 4));
@@ -103,14 +103,14 @@ public class ServiceDetailsActivity extends AppCompatActivity
         this.getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                backIntent();
+                finish();
             }
         });
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        backIntent();
+        finish();
         return true;
     }
 
@@ -141,19 +141,4 @@ public class ServiceDetailsActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void backIntent() {
-        finish();
-/*        Intent upIntent = NavUtils.getParentActivityIntent(this);
-        if (upIntent == null)
-            onBackPressed();
-
-        if (NavUtils.shouldUpRecreateTask(this, upIntent) || isTaskRoot()) {
-            TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
-        } else {
-            upIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            NavUtils.navigateUpTo(this, upIntent);
-        }*/
-    }
-
 }

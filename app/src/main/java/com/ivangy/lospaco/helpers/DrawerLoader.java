@@ -82,4 +82,10 @@ public class DrawerLoader {
         ta.recycle();
         return icons;
     }
+
+    public void unselectItems(){
+        adapter.unselectItems();
+    }
+
+
 }

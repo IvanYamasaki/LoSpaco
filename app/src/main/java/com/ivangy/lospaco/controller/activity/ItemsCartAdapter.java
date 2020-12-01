@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ivangy.lospaco.R;
-import com.ivangy.lospaco.model.Cart;
 
-import static com.ivangy.lospaco.helpers.AndroidHelper.getServiceByName;
 
 public class ItemsCartAdapter extends RecyclerView.Adapter<ItemsCartAdapter.ViewHolder> {
 

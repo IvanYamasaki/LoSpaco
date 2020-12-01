@@ -1,44 +1,58 @@
 package com.ivangy.lospaco.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.util.Base64;
+
+import java.io.UnsupportedEncodingException;
+
 public class Cart {
 
-    private String nameItem, type;
-    private int qntItem;
+    private String Name, Type, Image, Price;
+    private int Qnt;
 
-    public Cart(String nameItem, int qntItem, String type) {
-        this.nameItem = nameItem;
-        this.qntItem = qntItem;
-        this.type= type;
+    public String getName() {
+        return Name;
     }
 
-    public void setNameItem(String nameItem) {
-        this.nameItem = nameItem;
+    public void setName(String name) {
+        Name = name;
     }
 
     public String getType() {
-        return type;
+        return Type;
     }
 
     public void setType(String type) {
-        this.type = type;
+        Type = type;
     }
 
-/*
-    public void setPriceTotal() {
-        this.priceTotal = Double.valueOf(String.format("%.2f", priceBase*qntItem).replace(",", "."));
-    }
-*/
-
-    public String getNameItem() {
-        return nameItem;
+    public Bitmap getImage() throws UnsupportedEncodingException {
+        byte[] decodedString = Base64.decode(Image, Base64.DEFAULT);
+        String text = new String(decodedString, "UTF-8");
+        byte[] decodedText = Base64.decode(text, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedText, 0, decodedText.length);
+        return decodedByte;
     }
 
-    public int getQntItem() {
-        return qntItem;
+    public void setImage(String image) {
+        Image = image;
     }
 
-    public void setQntItem(int qntItem) {
-        this.qntItem = qntItem;
+    public String getPrice() {
+        return Price;
     }
 
+    public void setPrice(String price) {
+        Price = price;
+    }
+
+    public int getQnt() {
+        return Qnt;
+    }
+
+    public void setQnt(int qnt) {
+        Qnt = qnt;
+    }
 }

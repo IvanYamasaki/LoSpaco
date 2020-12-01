@@ -144,20 +144,6 @@ public abstract class AndroidHelper {
         }
     }
 
-    public static Service getServiceByName(String serviceName, ArrayList<Service> obj){
-        List<Service> list =  obj.stream().filter(ob -> ob.getName().equals(serviceName)).collect(Collectors.toList());
-        if(list.size() != 0)
-            return list.get(0);
-        return null;
-    }
-
-    public static Package getPackageByName(String packageName, ArrayList<Package> obj){
-        List<Package> list = obj.stream().filter(ob->ob.getNamePackage().equals(packageName)).collect(Collectors.toList());
-        if(list.size()!=0)
-        return list.get(0);
-        return null;
-    }
-
     public static void setSystemBarColor(Activity act, @ColorRes int color) {
             Window window = act.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
